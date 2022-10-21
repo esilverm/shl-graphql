@@ -1,0 +1,26 @@
+{
+  "name": "shl-supergraph",
+  "version": "1.0.0",
+  "description": "Supergraph implementation of SHL apis",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "compile": "tsc",
+    "start": "nodemon",
+    "generate": "graphql-codegen"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.0.1",
+    "graphql": "^16.6.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.13.7",
+    "@graphql-codegen/typescript": "^2.7.5",
+    "@graphql-codegen/typescript-resolvers": "^2.7.5",
+    "@types/node": "^18.11.3",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "tsc-watch": "^5.0.3",
+    "typescript": "^4.8.4"
+  }
+}

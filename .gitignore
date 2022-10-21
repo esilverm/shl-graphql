@@ -1,0 +1,7 @@
+# MacOS
+*~
+.DS_Store
+
+# Build and execution artifacts
+dist/
+node_modules/
