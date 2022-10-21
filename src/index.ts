@@ -1,5 +1,4 @@
 import { readFileSync } from "fs";
-import { resolve } from "path";
 
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
@@ -13,7 +12,7 @@ export interface MyContext {
   };
 }
 
-const typeDefs = readFileSync(resolve(__dirname, "./schema.graphql"), {
+const typeDefs = readFileSync("./schema.graphql", {
   encoding: "utf-8",
 });
 
