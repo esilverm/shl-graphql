@@ -4,31 +4,21 @@ import { resolve } from "path";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 
-import { Resolvers } from "./generated/graphql";
+import { PlayersDataSource } from "./datasources/players";
+import { resolvers } from "./resolvers";
+
+export interface MyContext {
+  dataSources?: {
+    playersAPI: PlayersDataSource;
+  };
+}
 
 const typeDefs = readFileSync(resolve(__dirname, "./schema.graphql"), {
   encoding: "utf-8",
 });
 
-const resolvers: Resolvers = {
-  Query: {
-    players: () => [
-      {
-        name: "Pass Forfeit",
-        height: 100,
-        weight: 200,
-      },
-      {
-        name: "Nicolaj Muller",
-        height: 50,
-        weight: 2020,
-      },
-    ],
-  },
-};
-
 async function startApolloServer() {
-  const server = new ApolloServer({
+  const server = new ApolloServer<MyContext>({
     typeDefs,
     resolvers,
   });

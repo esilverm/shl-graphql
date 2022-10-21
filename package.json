@@ -6,12 +6,10 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint --max-warnings=0 --ext .js,.ts,.json .",
-    "compile": "tsc",
-    "start": "nodemon",
+    "compile": "npm run codegen && tsc",
+    "start": "npm run codegen && nodemon",
     "codegen": "graphql-codegen --config codegen.ts",
     "codegen:watch": "npm run codegen -- --watch",
-    "prestart": "npm run codegen",
-    "precompile": "npm run codegen",
     "postinstall": "npm run codegen"
   },
   "dependencies": {
