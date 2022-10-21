@@ -8,16 +8,20 @@
     "lint": "eslint --max-warnings=0 --ext .js,.ts,.json .",
     "compile": "tsc",
     "start": "nodemon",
-    "generate": "graphql-codegen"
+    "codegen": "graphql-codegen --config codegen.ts",
+    "codegen:watch": "npm run codegen -- --watch",
+    "prestart": "npm run codegen",
+    "precompile": "npm run codegen",
+    "postinstall": "npm run codegen"
   },
   "dependencies": {
     "@apollo/server": "^4.0.1",
     "graphql": "^16.6.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.13.7",
-    "@graphql-codegen/typescript": "^2.7.5",
-    "@graphql-codegen/typescript-resolvers": "^2.7.5",
+    "@graphql-codegen/cli": "2.13.7",
+    "@graphql-codegen/typescript": "2.7.5",
+    "@graphql-codegen/typescript-resolvers": "2.7.5",
     "@types/node": "^18.11.3",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",

@@ -1,0 +1,9 @@
+type Query {
+  players: [Player]
+}
+
+type Player {
+  name: String!
+  height: Int!
+  weight: Int!
+}

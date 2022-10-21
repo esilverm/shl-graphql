@@ -5,3 +5,6 @@
 # Build and execution artifacts
 dist/
 node_modules/
+
+# Graphql Codegen
+src/generated/
