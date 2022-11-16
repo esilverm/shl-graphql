@@ -10,8 +10,6 @@ workflows:
       - typescript
 commands:
   install-node-example:
-    docker:
-      - image: 'cimg/base:stable'
     steps:
       - node/install:
           node-version: '16.15'
