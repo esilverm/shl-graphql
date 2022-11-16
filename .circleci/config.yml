@@ -6,12 +6,14 @@ workflows:
       - build:
           context:
             - test
+      - eslint
+      - typescript
 commands:
   npm-install:
     steps:
       - run:
           name: Install npm dependencies 
-          command: npm ci --prefer-offline
+          command: npm ci --prefer-offline --ignore-scripts
 jobs:
   eslint:
     executor: circleci/node:8
