@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@5.0.3
+
 workflows:
   my-workflow:
     jobs:
@@ -9,21 +12,14 @@ workflows:
       - eslint
       - typescript
 commands:
-  install-node-example:
-    steps:
-      - run:
-          name: Install node
-          command: npm i -g npm@18
-      - run: node --version
   npm-install:
     steps:
-      - install-node-example
       - run:
           name: Install npm dependencies 
           command: npm ci --prefer-offline 
 jobs:
   eslint:
-    executor: node
+    executor: node/default
     steps:
       - checkout
       - npm-install
@@ -31,7 +27,7 @@ jobs:
           name: Linter
           command: npm run lint
   typescript:
-    executor: node
+    executor: node/default
     steps:
       - checkout
       - npm-install
@@ -39,7 +35,7 @@ jobs:
           name: typescript
           command: npm run typescript:check
   build:
-    executor: node
+    executor: node/default
     steps:
       - checkout
       - npm-install
