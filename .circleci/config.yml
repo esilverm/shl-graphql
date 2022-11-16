@@ -1,5 +1,6 @@
 version: 2.1
 
+
 workflows:
   my-workflow:
     jobs:
@@ -9,8 +10,16 @@ workflows:
       - eslint
       - typescript
 commands:
+  install-node-example:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - node/install:
+          node-version: '16.15'
+      - run: node --version
   npm-install:
     steps:
+      - install-node-example
       - run:
           name: Install npm dependencies 
           command: npm ci --prefer-offline 
