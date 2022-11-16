@@ -1,7 +1,7 @@
 import { Resolvers } from "../generated/graphql";
 
-import { queries } from "./queries";
+import { Query } from "./Query";
 
 export const resolvers: Resolvers = {
-  ...queries,
+  Query,
 };

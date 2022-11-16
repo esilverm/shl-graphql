@@ -1,9 +1,9 @@
 type Query {
-  players: [Player]
+  leagues: [League]
 }
 
-type Player {
+type League {
+  id: ID!
   name: String!
-  height: Int!
-  weight: Int!
+  abbr: String!
 }

@@ -7,20 +7,27 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint --max-warnings=0 --ext .js,.ts,.json .",
-    "compile": "npm run codegen && tsc",
-    "start": "npm run codegen && tsc-watch -b --onSuccess \"node --experimental-specifier-resolution=node dist/index.js $*\"",
+    "compile": "tsc",
+    "start": "tsc-watch -b --onSuccess \"node --experimental-specifier-resolution=node dist/index.js $*\"",
     "codegen": "graphql-codegen --config codegen.yaml",
     "codegen:watch": "npm run codegen -- --watch",
-    "postinstall": "npm run codegen"
+    "postinstall": "npm run codegen",
+    "precompile": "npm run codegen",
+    "prestart": "npm run codegen"
   },
   "dependencies": {
     "@apollo/server": "^4.0.1",
+    "@apollo/utils.keyvadapter": "^1.1.2",
+    "dotenv": "^16.0.3",
     "graphql": "^16.6.0",
+    "keyv": "^4.5.2",
+    "mariadb": "^3.0.2",
     "sequelize": "^6.25.6"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.13.7",
     "@graphql-codegen/typescript": "^2.7.5",
+    "@graphql-codegen/typescript-operations": "^2.5.7",
     "@graphql-codegen/typescript-resolvers": "^2.7.7",
     "@types/node": "^18.11.3",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
