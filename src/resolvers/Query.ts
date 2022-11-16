@@ -8,7 +8,7 @@ export const Query: QueryResolvers = {
     return await dataSources.sequelize.models.Conference.findAll({
       where: {
         season,
-        ...(league && { league }),
+        ...(league !== undefined && { league }),
       },
     });
   },
