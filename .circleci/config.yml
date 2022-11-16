@@ -11,8 +11,9 @@ workflows:
 commands:
   install-node-example:
     steps:
-      - node/install:
-          node-version: '16.15'
+      - run:
+          name: Install node
+          command: npm i -g npm@18
       - run: node --version
   npm-install:
     steps:
