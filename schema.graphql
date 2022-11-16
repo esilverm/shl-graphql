@@ -1,9 +1,16 @@
 type Query {
   leagues: [League]
+  conferences(season: Int!, league: Int): [Conference]
 }
 
 type League {
   id: ID!
   name: String!
   abbr: String!
+}
+
+type Conference {
+  id: ID!
+  league: League!
+  name: String!
 }
