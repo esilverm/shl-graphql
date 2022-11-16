@@ -6,17 +6,38 @@ workflows:
       - build:
           context:
             - test
-
+commands:
+  npm-install:
+    steps:
+      - run:
+          name: Install npm dependencies 
+          command: npm ci --prefer-offline
 jobs:
+  eslint:
+    executor: circleci/node:8
+    steps:
+      - checkout
+      - npm-install
+      - run:
+          name: Linter
+          command: npm run lint
+
+          # tsc --noEmit
+  typescript:
+    executor: circleci/node:8
+    steps:
+      - checkout
+      - npm-install
+      - run:
+          name: typescript
+          command: npm run typescript:check
   build:
     docker:
       - image: circleci/node:8
 
     steps:
       - checkout
-
-      - run: npm install --ignore-scripts
-
+      - npm-install
       - run:
           name: Install Rover
           command: |
