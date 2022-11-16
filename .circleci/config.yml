@@ -1,5 +1,12 @@
 version: 2
 
+workflows:
+  my-workflow:
+    jobs:
+      - build:
+          context:
+            - test
+
 jobs:
   build:
     docker:
@@ -12,7 +19,6 @@ jobs:
 
       - run:
           name: Install Rover
-          # highlight-start
           command: |
             # Download and install Rover
             # This is pinned to a specific version for predictability in CI
@@ -20,7 +26,6 @@ jobs:
 
             # This allows the PATH changes to persist to the next `run` step
             echo 'export PATH=$HOME/.rover/bin:$PATH' >> $BASH_ENV
-          # highlight-end
 
       # Start the GraphQL server.  If a different command is used to
       # start the server, use it in place of `npm start` here.
@@ -32,8 +37,7 @@ jobs:
       # make sure the server has enough time to start up before running
       # commands against it
       - run: sleep 5
-
-      # highlight-start
+      
       # When running on the 'main' branch, push the latest version
       # of the schema to Apollo Studio.
       - run: |
@@ -41,4 +45,3 @@ jobs:
             rover graph publish SHL-Index@current \
               --schema ./schema.graphql
           fi
-      # highlight-end
