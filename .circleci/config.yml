@@ -6,7 +6,13 @@ orbs:
 workflows:
   my-workflow:
     jobs:
+      - check
       - build:
+          requires:
+            - check
+          filters:
+            branches:
+              only: main
           context:
             - test
       - eslint
@@ -17,6 +23,28 @@ commands:
       - run:
           name: Install npm dependencies 
           command: npm ci --prefer-offline 
+  rover-install:
+    steps:
+      - run:
+          name: Install Rover
+          command: |
+            # Download and install Rover
+            # This is pinned to a specific version for predictability in CI
+            curl -sSL https://rover.apollo.dev/nix/v0.8.1 -k | sh
+
+            # This allows the PATH changes to persist to the next `run` step
+            echo 'export PATH=$HOME/.rover/bin:$PATH' >> $BASH_ENV
+  start-server:
+    steps:
+      # Start the GraphQL server.  If a different command is used to
+      # start the server, use it in place of `npm start` here.  
+      - run:
+          name: Starting server
+          command: npm start
+          background: true
+      # make sure the server has enough time to start up before running
+      # commands against it
+      - run: sleep 5
 jobs:
   eslint:
     executor: node/default
@@ -34,36 +62,25 @@ jobs:
       - run:
           name: typescript
           command: npm run typescript:check
+  check: 
+    executor: node/default
+    steps:
+      - checkout
+      - npm-install
+      - rover-install
+      - start-server
+      - run: |
+          rover graph check SHL-Index@current \
+            --schema ./schema.graphql
   build:
     executor: node/default
     steps:
       - checkout
       - npm-install
-      - run:
-          name: Install Rover
-          command: |
-            # Download and install Rover
-            # This is pinned to a specific version for predictability in CI
-            curl -sSL https://rover.apollo.dev/nix/v0.8.1 -k | sh
-
-            # This allows the PATH changes to persist to the next `run` step
-            echo 'export PATH=$HOME/.rover/bin:$PATH' >> $BASH_ENV
-
-      # Start the GraphQL server.  If a different command is used to
-      # start the server, use it in place of `npm start` here.
-      - run:
-          name: Starting server
-          command: npm start --ignore-scripts
-          background: true
-
-      # make sure the server has enough time to start up before running
-      # commands against it
-      - run: sleep 5
-
+      - rover-install
+      - start-server
       # When running on the 'main' branch, push the latest version
       # of the schema to Apollo Studio.
       - run: |
-          if [ "${CIRCLE_BRANCH}" == "main" ]; then
-            rover graph publish SHL-Index@current \
-              --schema ./schema.graphql
-          fi
+          rover graph publish SHL-Index@current \
+            --schema ./schema.graphql
