@@ -16,7 +16,8 @@ commands:
           command: npm ci --prefer-offline --ignore-scripts
 jobs:
   eslint:
-    executor: circleci/node:8
+    docker:
+      - image: circleci/node:8
     steps:
       - checkout
       - npm-install
@@ -26,7 +27,8 @@ jobs:
 
           # tsc --noEmit
   typescript:
-    executor: circleci/node:8
+    docker:
+      - image: circleci/node:8
     steps:
       - checkout
       - npm-install
