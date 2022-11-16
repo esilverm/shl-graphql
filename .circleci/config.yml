@@ -23,8 +23,7 @@ commands:
           command: npm ci --prefer-offline 
 jobs:
   eslint:
-    docker:
-      - image: circleci/node:18
+    executor: node
     steps:
       - checkout
       - npm-install
@@ -32,8 +31,7 @@ jobs:
           name: Linter
           command: npm run lint
   typescript:
-    docker:
-      - image: circleci/node:18
+    executor: node
     steps:
       - checkout
       - npm-install
@@ -41,9 +39,7 @@ jobs:
           name: typescript
           command: npm run typescript:check
   build:
-    docker:
-      - image: circleci/node:18
-
+    executor: node
     steps:
       - checkout
       - npm-install
