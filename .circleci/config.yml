@@ -13,22 +13,20 @@ commands:
     steps:
       - run:
           name: Install npm dependencies 
-          command: npm ci --prefer-offline --ignore-scripts
+          command: npm ci --prefer-offline 
 jobs:
   eslint:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:18
     steps:
       - checkout
       - npm-install
       - run:
           name: Linter
           command: npm run lint
-
-          # tsc --noEmit
   typescript:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:18
     steps:
       - checkout
       - npm-install
@@ -37,7 +35,7 @@ jobs:
           command: npm run typescript:check
   build:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:18
 
     steps:
       - checkout
