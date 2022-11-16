@@ -6,7 +6,9 @@ orbs:
 workflows:
   my-workflow:
     jobs:
-      - check
+      - check:
+          context:
+            - test
       - build:
           requires:
             - check
