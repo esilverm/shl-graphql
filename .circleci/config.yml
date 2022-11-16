@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
 
-      - run: npm install
+      - run: npm install --ignore-scripts
 
       - run:
           name: Install Rover
@@ -26,7 +26,7 @@ jobs:
       # start the server, use it in place of `npm start` here.
       - run:
           name: Starting server
-          command: npm start
+          command: npm start --ignore-scripts
           background: true
 
       # make sure the server has enough time to start up before running
