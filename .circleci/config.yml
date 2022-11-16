@@ -16,7 +16,7 @@ jobs:
           command: |
             # Download and install Rover
             # This is pinned to a specific version for predictability in CI
-            curl -sSL https://rover.apollo.dev/nix/v0.8.1 | sh
+            curl -sSL https://rover.apollo.dev/nix/latest | sh
 
             # This allows the PATH changes to persist to the next `run` step
             echo 'export PATH=$HOME/.rover/bin:$PATH' >> $BASH_ENV
