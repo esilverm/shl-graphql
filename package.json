@@ -22,10 +22,12 @@
   "dependencies": {
     "@apollo/server": "^4.1.0",
     "@apollo/utils.keyvadapter": "^1.1.2",
+    "dataloader": "^2.1.0",
     "dotenv": "^16.0.3",
     "graphql": "^16.6.0",
     "keyv": "^4.5.2",
     "mariadb": "^3.0.2",
+    "reflect-metadata": "^0.1.13",
     "sequelize": "^6.25.6"
   },
   "devDependencies": {
@@ -33,7 +35,8 @@
     "@graphql-codegen/typescript": "^2.7.5",
     "@graphql-codegen/typescript-operations": "^2.5.7",
     "@graphql-codegen/typescript-resolvers": "^2.7.7",
-    "@types/node": "^18.11.3",
+    "@types/node": "^18.11.9",
+    "@types/validator": "^13.7.10",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
     "eslint": "^8.25.0",

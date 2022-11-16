@@ -6,8 +6,10 @@ import { KeyvAdapter } from "@apollo/utils.keyvadapter";
 import * as dotenv from "dotenv";
 import Keyv from "keyv";
 
+import { Context } from "./context";
 import { createSequelize } from "./db/db";
 import { resolvers } from "./resolvers";
+import { createLeagueDataLoader } from "./resolvers/utils/leagueDataloader";
 
 dotenv.config();
 
@@ -18,13 +20,7 @@ const typeDefs = readFileSync("./schema.graphql", {
 const sequelize = await createSequelize();
 console.log("🚀  Sequelize connected to database.");
 
-export interface MyContext {
-  dataSources: {
-    sequelize;
-  };
-}
-
-const server = new ApolloServer<MyContext>({
+const server = new ApolloServer<Context>({
   typeDefs,
   resolvers,
   cache: new KeyvAdapter(new Keyv()),
@@ -34,13 +30,10 @@ const server = new ApolloServer<MyContext>({
 });
 
 const { url } = await startStandaloneServer(server, {
-  context: async () => {
-    return {
-      dataSources: {
-        sequelize,
-      },
-    };
-  },
+  context: async () => ({
+    sequelize,
+    leagueDataLoader: createLeagueDataLoader(),
+  }),
 });
 
 console.log(`🚀  Server ready at: ${url}`);

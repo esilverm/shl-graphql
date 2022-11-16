@@ -5,7 +5,6 @@ generates:
     plugins:
     - typescript
     - typescript-resolvers
-    - typescript-operations
     config:
       useIndexSignature: true
-      contextType: '../index#MyContext'
+      contextType: '../context#Context'

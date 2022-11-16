@@ -10,7 +10,7 @@ export class League extends Model<
   InferAttributes<League>,
   InferCreationAttributes<League>
 > {
-  declare id: number;
+  declare id: string;
   declare name: string;
   declare abbr: string;
 
@@ -18,7 +18,7 @@ export class League extends Model<
     League.init(
       {
         id: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING,
           field: "LeagueID",
           primaryKey: true,
         },
@@ -38,5 +38,21 @@ export class League extends Model<
         timestamps: false,
       }
     );
+  }
+
+  public static async getLeague(id: number): Promise<League> {
+    if (!id) {
+      throw new Error("You need an id to fetch a single league");
+    }
+
+    const league = await League.findOne({
+      where: { id },
+    });
+
+    if (!league) {
+      throw new Error("League not found");
+    }
+
+    return league;
   }
 }

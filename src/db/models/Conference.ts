@@ -10,16 +10,16 @@ export class Conference extends Model<
   InferAttributes<Conference>,
   InferCreationAttributes<Conference>
 > {
-  declare id: number;
+  declare id: string;
   declare name: string;
-  declare league: number;
+  declare league: string;
   declare season: number;
 
   public static initialize(sequelize: Sequelize) {
     Conference.init(
       {
         id: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING,
           field: "ConferenceID",
           primaryKey: true,
         },
@@ -28,7 +28,7 @@ export class Conference extends Model<
           field: "Name",
         },
         league: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING,
           field: "LeagueID",
         },
         season: {
